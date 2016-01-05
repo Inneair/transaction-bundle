@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:Inneair-transaction="http://example.org/schema/dic/inneair_transaction"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+        inneair_transaction http://example.org/dic/schema/inneair_transaction/transaction-1.0.xsd">
+
+    <Inneair-transaction:config>
+        <Inneair-transaction:no-rollback-exception>MyException</Inneair-transaction:no-rollback-exception>
+    </Inneair-transaction:config>
+</container>

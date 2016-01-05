@@ -1,0 +1,10 @@
+/.idea/
+/.settings/
+/bin/
+/build/
+/docs/
+/reports/
+/vendor/
+/**/.*.md.html
+/.buildpath
+/.project

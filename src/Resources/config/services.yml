@@ -1,0 +1,16 @@
+parameters:
+    inneair_transaction.transactional_interceptor.class: Inneair\TransactionBundle\Aop\TransactionalInterceptor
+    inneair_transaction.transactional_pointcut.class : Inneair\TransactionBundle\Aop\TransactionalPointcut
+
+services:
+    # Transactional annotation pointcut
+    inneair_transaction.transactional_pointcut:
+        class: '%inneair_transaction.transactional_pointcut.class%'
+        arguments: ['@service_container', '@annotation_reader', '@logger']
+        tags:
+            - {name: 'jms_aop.pointcut', interceptor: 'inneair_transaction.transactional_interceptor'}
+
+    # Interceptor for transaction management
+    inneair_transaction.transactional_interceptor:
+        class: '%inneair_transaction.transactional_interceptor.class%'
+        arguments: ['@service_container', '@doctrine', '@annotation_reader', '@logger']

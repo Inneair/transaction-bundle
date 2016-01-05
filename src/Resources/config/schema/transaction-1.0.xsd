@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns="http://example.org/dic/schema/inneair_transaction" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://example.org/dic/schema/inneair_transaction" elementFormDefault="qualified">
+
+    <xsd:annotation>
+        <xsd:documentation><![CDATA[
+      Inneair Transaction bundle schema, version 1.0
+      Authors: Vincent Clair
+
+      This scheme defines the elements and attributes that can be used to customize transaction management.
+    ]]></xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:element name="config" type="configType" />
+
+    <xsd:complexType name="configType">
+        <xsd:sequence>
+            <xsd:element name="no-rollback-exception" type="exceptionType" minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="strict-mode" type="xsd:boolean" use="optional" default="false" />
+        <xsd:attribute name="default-policy" type="policyType" use="optional" default="required" />
+    </xsd:complexType>
+
+    <xsd:simpleType name="exceptionType">
+        <xsd:restriction base="xsd:string">
+            <xsd:whiteSpace value="collapse" />
+            <xsd:minLength value="1" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="policyType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="required" />
+            <xsd:enumeration value="not_required" />
+            <xsd:enumeration value="nested" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

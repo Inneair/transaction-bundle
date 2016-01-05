@@ -1,0 +1,3 @@
+src_dir: src
+coverage_clover: reports/phpunit.coverage.xml
+json_path: reports/coveralls-upload.json

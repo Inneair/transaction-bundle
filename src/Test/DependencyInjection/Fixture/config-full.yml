@@ -1,0 +1,5 @@
+inneair_transaction:
+    strict_mode: true
+    default_policy: 'nested'
+    no_rollback_exceptions:
+        - 'Exception'

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Inneair Transaction bundle for Symfony - API</title>
+    <parser>
+        <target>docs/api</target>
+    </parser>
+    <transformer>
+        <target>docs/api</target>
+    </transformer>
+    <transformations>
+        <template name="clean" />
+    </transformations>
+    <files>
+        <directory>src</directory>
+    </files>
+</phpdoc>

@@ -1,0 +1,3 @@
+inneair_transaction:
+    no_rollback_exceptions:
+        - 'MyException'
