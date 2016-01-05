@@ -126,6 +126,7 @@ class Transactional
      * Validates a policy specified in the annotation.
      *
      * @param integer $annotationPolicy Policy.
+     * @return int Validated policy ID.
      * @throws AnnotationException If the policy is invalid.
      */
     private function validatePolicy($annotationPolicy)
@@ -135,8 +136,9 @@ class Transactional
             $policy = $annotationPolicy;
         } else {
             throw new AnnotationException(
-                'Invalid policy: "' . $annotationPolicy . '", must be one of the constants [' . implode(', ', $policies) .
-                     ']');
+                'Invalid policy: "' . $annotationPolicy . '", must be one of the constants [' .
+                implode(', ', $policies) . ']'
+            );
         }
         return $policy;
     }
@@ -145,6 +147,7 @@ class Transactional
      * Validates the no rollback exceptions in the annotation.
      *
      * @param string[] $annotationNoRollbackExceptions Exception class names.
+     * @return array Rollback exceptions.
      * @throws AnnotationException If a class is not found, or is not an exception.
      */
     private function validateNoRollbackExceptions($annotationNoRollbackExceptions)

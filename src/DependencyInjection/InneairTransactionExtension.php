@@ -64,8 +64,8 @@ class InneairTransactionExtension extends Extension
             break;
         default:
             throw new InvalidArgumentException(
-                'Unsupported default policy "' . $config[Configuration::DEFAULT_POLICY] . '"');
-            break;
+                'Unsupported default policy "' . $config[Configuration::DEFAULT_POLICY] . '"'
+            );
         }
         $container->setParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY, $policy);
 
@@ -83,7 +83,8 @@ class InneairTransactionExtension extends Extension
         }
         $container->setParameter(
             Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS,
-            $noRollbackExceptions);
+            $noRollbackExceptions
+        );
     }
 
     /**

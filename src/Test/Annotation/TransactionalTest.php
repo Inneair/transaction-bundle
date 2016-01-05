@@ -64,14 +64,16 @@ class TransactionalTest extends AbstractTest
     public function testUnannotatedClass()
     {
         $this->assertNull(
-            $this->reader->getClassAnnotation(new ReflectionClass(UnannotatedClass::class), Transactional::class));
+            $this->reader->getClassAnnotation(new ReflectionClass(UnannotatedClass::class), Transactional::class)
+        );
     }
 
     public function testUnannotatedMethod()
     {
         $class = new ReflectionClass(AnnotatedClassWithDefaultOptions::class);
         $this->assertNull(
-            $this->reader->getMethodAnnotation($class->getMethod('unannotatedmethod'), Transactional::class));
+            $this->reader->getMethodAnnotation($class->getMethod('unannotatedmethod'), Transactional::class)
+        );
     }
 
     public function testAnnotatedClassWithDefaultOptions()
@@ -79,7 +81,8 @@ class TransactionalTest extends AbstractTest
         /** @var Transactional $annotation */
         $annotation = $this->reader->getClassAnnotation(
             new ReflectionClass(AnnotatedClassWithDefaultOptions::class),
-            Transactional::class);
+            Transactional::class
+        );
         $this->assertNotNull($annotation);
         $this->assertInstanceOf(Transactional::class, $annotation);
         $this->assertNull($annotation->getPolicy());
@@ -92,7 +95,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getClassAnnotation(
                 new ReflectionClass(AnnotatedClassWithInvalidPolicyType::class),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -105,7 +109,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getClassAnnotation(
                 new ReflectionClass(AnnotatedClassWithInvalidPolicyValue::class),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -117,7 +122,8 @@ class TransactionalTest extends AbstractTest
         /** @var Transactional $annotation */
         $annotation = $this->reader->getClassAnnotation(
             new ReflectionClass(AnnotatedClassWithPolicy::class),
-            Transactional::class);
+            Transactional::class
+        );
         $this->assertNotNull($annotation);
         $this->assertInstanceOf(Transactional::class, $annotation);
         $this->assertSame(Transactional::NESTED, $annotation->getPolicy());
@@ -129,7 +135,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getClassAnnotation(
                 new ReflectionClass(AnnotatedClassWithInvalidNoRollbackExceptionType::class),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -142,7 +149,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getClassAnnotation(
                 new ReflectionClass(AnnotatedClassWithInvalidNoRollbackExceptionClass::class),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -155,7 +163,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getClassAnnotation(
                 new ReflectionClass(AnnotatedClassWithUnknownNoRollbackExceptionClass::class),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -167,7 +176,8 @@ class TransactionalTest extends AbstractTest
         /** @var Transactional $annotation */
         $annotation = $this->reader->getClassAnnotation(
             new ReflectionClass(AnnotatedClassWithNoRollbackExceptions::class),
-            Transactional::class);
+            Transactional::class
+        );
         $this->assertNotNull($annotation);
         $this->assertInstanceOf(Transactional::class, $annotation);
         $noRollbackExceptions = $annotation->getNoRollbackExceptions();
@@ -183,7 +193,8 @@ class TransactionalTest extends AbstractTest
         /** @var Transactional $annotation */
         $annotation = $this->reader->getMethodAnnotation(
             $class->getMethod('annotatedMethodWithDefaultOptions'),
-            Transactional::class);
+            Transactional::class
+        );
         $this->assertNotNull($annotation);
         $this->assertInstanceOf(Transactional::class, $annotation);
         $this->assertNull($annotation->getPolicy());
@@ -197,7 +208,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getMethodAnnotation(
                 $class->getMethod('annotatedMethodWithInvalidPolicyType'),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -211,7 +223,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getMethodAnnotation(
                 $class->getMethod('annotatedMethodWithInvalidPolicyValue'),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -224,7 +237,8 @@ class TransactionalTest extends AbstractTest
         /** @var Transactional $annotation */
         $annotation = $this->reader->getMethodAnnotation(
             $class->getMethod('annotatedMethodWithPolicy'),
-            Transactional::class);
+            Transactional::class
+        );
         $this->assertNotNull($annotation);
         $this->assertInstanceOf(Transactional::class, $annotation);
         $this->assertSame(Transactional::NESTED, $annotation->getPolicy());
@@ -237,7 +251,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getMethodAnnotation(
                 $class->getMethod('annotatedMethodWithInvalidNoRollbackExceptionType'),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -251,7 +266,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getMethodAnnotation(
                 $class->getMethod('annotatedMethodWithInvalidNoRollbackExceptionClass'),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -265,7 +281,8 @@ class TransactionalTest extends AbstractTest
         try {
             $this->reader->getMethodAnnotation(
                 $class->getMethod('annotatedMethodWithUnknownNoRollbackExceptionClass'),
-                Transactional::class);
+                Transactional::class
+            );
         } catch (AnnotationException $e) {
             $hasException = true;
         }
@@ -278,7 +295,8 @@ class TransactionalTest extends AbstractTest
         /** @var Transactional $annotation */
         $annotation = $this->reader->getMethodAnnotation(
             $class->getMethod('annotatedMethodWithNoRollbackExceptions'),
-            Transactional::class);
+            Transactional::class
+        );
         $this->assertNotNull($annotation);
         $this->assertInstanceOf(Transactional::class, $annotation);
         $noRollbackExceptions = $annotation->getNoRollbackExceptions();

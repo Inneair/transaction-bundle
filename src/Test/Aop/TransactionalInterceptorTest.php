@@ -107,8 +107,12 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->reader = $this->getMock(Reader::class);
 
-        $this->transactionalInterceptor = new TransactionalInterceptor($this->container, $this->entityManagerRegistry,
-            $this->reader, $this->logger);
+        $this->transactionalInterceptor = new TransactionalInterceptor(
+            $this->container,
+            $this->entityManagerRegistry,
+            $this->reader,
+            $this->logger
+        );
     }
 
     /**
@@ -129,7 +133,8 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->reader->expects(static::exactly(2))->method('getMethodAnnotation')->willReturnOnConsecutiveCalls(
             $annotationRequired,
-            $annotationRequiresNew);
+            $annotationRequiresNew
+        );
 
         $this->entityManager->expects(static::exactly(2))->method('beginTransaction');
         $this->entityManager->expects(static::exactly(2))->method('commit');
@@ -144,7 +149,9 @@ class TransactionalInterceptorTest extends AbstractTest
         $this->assertNull(
             $this->transactionalInterceptor->intercept(
                 new MethodInvocation($class->getMethod('cMethod'), $instance,
-                    array($nestedTransaction, array($class, $instance)), array())));
+                    array($nestedTransaction, array($class, $instance)), array())
+            )
+        );
     }
 
     /**
@@ -166,7 +173,8 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->reader->expects(static::exactly(2))->method('getClassAnnotation')->willReturnOnConsecutiveCalls(
             $annotationRequired,
-            $annotationRequiresNew);
+            $annotationRequiresNew
+        );
 
         $this->entityManager->expects(static::exactly(2))->method('beginTransaction');
         $this->entityManager->expects(static::exactly(2))->method('commit');
@@ -181,7 +189,9 @@ class TransactionalInterceptorTest extends AbstractTest
         $this->assertNull(
             $this->transactionalInterceptor->intercept(
                 new MethodInvocation($class->getMethod('cMethod'), $instance,
-                    array($nestedTransaction, array($class, $instance)), array())));
+                    array($nestedTransaction, array($class, $instance)), array())
+            )
+        );
     }
 
     /**
@@ -201,7 +211,9 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->assertNull(
             $this->transactionalInterceptor->intercept(
-                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())));
+                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())
+            )
+        );
     }
 
     /**
@@ -221,7 +233,9 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->assertNull(
             $this->transactionalInterceptor->intercept(
-                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())));
+                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())
+            )
+        );
     }
 
     public function testDefaultOptions()
@@ -252,8 +266,13 @@ class TransactionalInterceptorTest extends AbstractTest
         $hasException = false;
         try {
             $this->transactionalInterceptor->intercept(
-                new MethodInvocation($class->getMethod('bMethodThrowException'), $instance, array($exceptionClassName),
-                    array()));
+                new MethodInvocation(
+                    $class->getMethod('bMethodThrowException'),
+                    $instance,
+                    array($exceptionClassName),
+                    array()
+                )
+            );
         } catch (Exception $e) {
             $hasException = true;
         }
@@ -277,7 +296,9 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->assertNull(
             $this->transactionalInterceptor->intercept(
-                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())));
+                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())
+            )
+        );
     }
 
     /**
@@ -290,7 +311,8 @@ class TransactionalInterceptorTest extends AbstractTest
         $instance = $class->newInstance();
 
         $annotation = new Transactional(
-            $this->buildTransactionalOptions(Transactional::REQUIRED, array(Exception::class)));
+            $this->buildTransactionalOptions(Transactional::REQUIRED, array(Exception::class))
+        );
         $this->reader->expects(static::once())->method('getMethodAnnotation')->willReturn($annotation);
         $this->reader->expects(static::never())->method('getClassAnnotation');
         $this->entityManager->expects(static::once())->method('beginTransaction');
@@ -300,8 +322,13 @@ class TransactionalInterceptorTest extends AbstractTest
         $hasException = false;
         try {
             $this->transactionalInterceptor->intercept(
-                new MethodInvocation($class->getMethod('bMethodThrowException'), $instance, array(Exception::class),
-                    array()));
+                new MethodInvocation(
+                    $class->getMethod('bMethodThrowException'),
+                    $instance,
+                    array(Exception::class),
+                    array()
+                )
+            );
         } catch (Exception $e) {
             $hasException = true;
         }
@@ -328,7 +355,9 @@ class TransactionalInterceptorTest extends AbstractTest
         try {
             $this->transactionalInterceptor->intercept(
                 new MethodInvocation($class->getMethod('bMethodThrowException'), $instance, array(Exception::class),
-                    array()));
+                    array()
+                )
+            );
         } catch (Exception $e) {
             $hasException = true;
         }
@@ -352,7 +381,9 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->assertNull(
             $this->transactionalInterceptor->intercept(
-                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())));
+                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())
+            )
+        );
     }
 
     /**
@@ -376,7 +407,9 @@ class TransactionalInterceptorTest extends AbstractTest
         try {
             $this->transactionalInterceptor->intercept(
                 new MethodInvocation($class->getMethod('bMethodThrowException'), $instance, array(Exception::class),
-                    array()));
+                    array()
+                )
+            );
         } catch (Exception $e) {
             $hasException = true;
         }
@@ -403,7 +436,9 @@ class TransactionalInterceptorTest extends AbstractTest
         try {
             $this->transactionalInterceptor->intercept(
                 new MethodInvocation($class->getMethod('bMethodThrowException'), $instance, array(Exception::class),
-                    array()));
+                    array()
+                )
+            );
         } catch (Exception $e) {
             $hasException = true;
         }
@@ -427,7 +462,9 @@ class TransactionalInterceptorTest extends AbstractTest
 
         $this->assertNull(
             $this->transactionalInterceptor->intercept(
-                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())));
+                new MethodInvocation($class->getMethod('aMethod'), $instance, array(), array())
+            )
+        );
     }
 
     /**
@@ -449,8 +486,14 @@ class TransactionalInterceptorTest extends AbstractTest
         try {
             $this->assertNull(
                 $this->transactionalInterceptor->intercept(
-                    new MethodInvocation($class->getMethod('bMethodThrowException'), $instance, array(Exception::class),
-                        array())));
+                    new MethodInvocation(
+                        $class->getMethod('bMethodThrowException'),
+                        $instance,
+                        array(Exception::class),
+                        array()
+                    )
+                )
+            );
         } catch (Exception $e) {
             $hasException = true;
         }
@@ -462,6 +505,7 @@ class TransactionalInterceptorTest extends AbstractTest
      *
      * @param integer $policy Policy.
      * @param string[] $noRollbackExceptions Array of exception class names.
+     * @return array
      */
     private function buildTransactionalOptions($policy = null, array $noRollbackExceptions = null)
     {

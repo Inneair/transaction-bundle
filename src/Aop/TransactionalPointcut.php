@@ -54,10 +54,9 @@ class TransactionalPointcut implements PointcutInterface
     /**
      * Creates a transactional pointcut.
      *
+     * @param ContainerInterface $container
      * @param Reader $reader An annotations reader.
      * @param LoggerInterface $logger Logger.
-     * @param bool $strictModeEnabled Whether target classes must implement also the {@link TransactionalAwareInterface}
-     * interface (defaults to <code>false</code>).
      * @see TransactionalAwareInterface
      */
     public function __construct(ContainerInterface $container, Reader $reader, LoggerInterface $logger)
@@ -65,7 +64,8 @@ class TransactionalPointcut implements PointcutInterface
         $this->reader = $reader;
         $this->logger = $logger;
         $this->strictModeEnabled = $container->getParameter(
-            Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE);
+            Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE
+        );
     }
 
     /**
@@ -117,14 +117,19 @@ class TransactionalPointcut implements PointcutInterface
                     break;
                 }
                 $this->logger->debug(
-                    'TX policy for \'' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '\': ' .
-                         $policyName);
+                    'TX policy for \'' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '\': '
+                    . $policyName
+                );
                 $noRollbackExceptionsStr = implode(
                     ', ',
-                    ($annotation->getNoRollbackExceptions() === null) ? array('default') : $annotation->getNoRollbackExceptions());
+                    ($annotation->getNoRollbackExceptions() === null)
+                        ? array('default')
+                        : $annotation->getNoRollbackExceptions()
+                );
                 $this->logger->debug(
-                    'TX no-rollback exceptions for \'' . $method->getDeclaringClass()->getName() . '::' .
-                         $method->getName() . '\': ' . $noRollbackExceptionsStr);
+                    'TX no-rollback exceptions for \'' . $method->getDeclaringClass()->getName() . '::'
+                    . $method->getName() . '\': ' . $noRollbackExceptionsStr
+                );
             }
         }
 

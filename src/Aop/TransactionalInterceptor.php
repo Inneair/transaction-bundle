@@ -103,7 +103,8 @@ class TransactionalInterceptor implements MethodInterceptorInterface
             // have been invoked.
             $this->logger->warning(
                 'Transactional interceptor was invoked, but no annotation was found for method \'' .
-                     $methodDefinition->getDeclaringClass()->getName() . '::' . $methodDefinition->getName() . '\'');
+                 $methodDefinition->getDeclaringClass()->getName() . '::' . $methodDefinition->getName() . '\''
+            );
         }
 
         // Gets the entity manager.
@@ -115,14 +116,16 @@ class TransactionalInterceptor implements MethodInterceptorInterface
             // Determine if a transaction must be started.
             $transactionRequired = $this->isTransactionRequired(
                 $policy,
-                $entityManager->getConnection()->isTransactionActive());
+                $entityManager->getConnection()->isTransactionActive()
+            );
         }
 
         $this->beforeMethodInvocation($transactionRequired, $entityManager);
         try {
             // Invokes the method.
             $this->logger->debug(
-                $methodDefinition->getDeclaringClass()->getName() . '::' . $methodDefinition->getName());
+                $methodDefinition->getDeclaringClass()->getName() . '::' . $methodDefinition->getName()
+            );
             $result = $method->proceed();
             $this->afterMethodInvocationSuccess($transactionRequired, $entityManager);
         } catch (Exception $e) {
@@ -133,7 +136,8 @@ class TransactionalInterceptor implements MethodInterceptorInterface
             } elseif ($annotation->getNoRollbackExceptions() === null) {
                 // No exceptions set in the annotation (even if the parameter was found), use the default configuration.
                 $noRollbackExceptions = $this->container->getParameter(
-                    Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS);
+                    Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS
+                );
             } else {
                 // Use the annotation parameter.
                 $noRollbackExceptions = $annotation->getNoRollbackExceptions();
@@ -153,8 +157,12 @@ class TransactionalInterceptor implements MethodInterceptorInterface
      * @param string[] $noRollbackExceptions An array of exceptions that shall not lead to a transaction rollback.
      * @throws Exception At the end of the additional process (given exception).
      */
-    protected function afterMethodInvocationFailure($transactionRequired, EntityManagerInterface $entityManager,
-        Exception $e, array $noRollbackExceptions = null)
+    protected function afterMethodInvocationFailure(
+        $transactionRequired,
+        EntityManagerInterface $entityManager,
+        Exception $e,
+        array $noRollbackExceptions = null
+    )
     {
         if ($transactionRequired) {
             if ($this->isRollbackEnabled($e, $noRollbackExceptions)) {

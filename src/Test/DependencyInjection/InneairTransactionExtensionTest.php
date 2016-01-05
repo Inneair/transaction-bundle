@@ -86,14 +86,18 @@ class InneairTransactionExtensionTest extends AbstractTest
         $this->extension->load(array(), $this->container);
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertFalse(
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertSame(
             Transactional::REQUIRED,
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
     }
 
     public function testConfigurationWithStrictMode()
@@ -101,9 +105,11 @@ class InneairTransactionExtensionTest extends AbstractTest
         $this->extension->load(array(array(Configuration::STRICT_MODE => true)), $this->container);
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertTrue(
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
     }
 
     public function testConfigurationWithoutStrictMode()
@@ -111,35 +117,43 @@ class InneairTransactionExtensionTest extends AbstractTest
         $this->extension->load(array(array(Configuration::STRICT_MODE => false)), $this->container);
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertFalse(
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
     }
 
     public function testConfigurationWithRequiredPolicy()
     {
         $this->extension->load(
             array(array(Configuration::DEFAULT_POLICY => Configuration::POLICY_REQUIRED)),
-            $this->container);
+            $this->container
+        );
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertSame(
             Transactional::REQUIRED,
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
     }
 
     public function testConfigurationWithNotRequiredPolicy()
     {
         $this->extension->load(
             array(array(Configuration::DEFAULT_POLICY => Configuration::POLICY_NOT_REQUIRED)),
-            $this->container);
+            $this->container
+        );
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertSame(
             Transactional::NOT_REQUIRED,
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
     }
 
     public function testConfigurationWithNestedPolicy()
@@ -149,10 +163,12 @@ class InneairTransactionExtensionTest extends AbstractTest
             $this->container);
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertSame(
             Transactional::NESTED,
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
     }
 
     public function testConfigurationWithUnsupportedPolicy()
@@ -173,18 +189,24 @@ class InneairTransactionExtensionTest extends AbstractTest
         $this->loadConfigurationFile('config-full.yml');
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertTrue(
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertSame(
             Transactional::NESTED,
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS)
+        );
         $noRollbackExceptions = $this->container->getParameter(
-            Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS);
+            Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS
+        );
         $this->assertCount(1, $noRollbackExceptions);
         $this->assertSame('Exception', current($noRollbackExceptions));
     }
@@ -216,18 +238,24 @@ class InneairTransactionExtensionTest extends AbstractTest
         $this->loadConfigurationFile('config-full.xml');
 
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertTrue(
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)
+        );
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertSame(
             Transactional::NESTED,
-            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY));
+            $this->container->getParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY)
+        );
         $this->assertTrue(
-            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS));
+            $this->container->hasParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS)
+        );
         $noRollbackExceptions = $this->container->getParameter(
-            Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS);
+            Configuration::ROOT_NODE_NAME . '.' . Configuration::NO_ROLLBACK_EXCEPTIONS
+        );
         $this->assertCount(1, $noRollbackExceptions);
         $this->assertSame('Exception', current($noRollbackExceptions));
     }
@@ -269,7 +297,9 @@ class InneairTransactionExtensionTest extends AbstractTest
         $fileLocator = new FileLocator(__DIR__ . '/Fixture');
         if (mb_strrpos($configFileName, $ymlExtension) === (mb_strlen($configFileName) - mb_strlen($ymlExtension))) {
             $loader = new YamlFileLoader($this->container, $fileLocator);
-        } elseif (mb_strrpos($configFileName, $xmlExtension) === (mb_strlen($configFileName) - mb_strlen($xmlExtension))) {
+        } elseif (
+            mb_strrpos($configFileName, $xmlExtension) === (mb_strlen($configFileName) - mb_strlen($xmlExtension))
+        ) {
             $loader = new XmlFileLoader($this->container, $fileLocator);
         } else {
             throw Exception('Configuration file not supported: ' . $configFileName);

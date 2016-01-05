@@ -21,6 +21,7 @@
 namespace Inneair\TransactionBundle\Test\Aop;
 
 use Doctrine\Common\Annotations\Reader;
+use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use Inneair\TransactionBundle\Annotation\Transactional;
@@ -68,21 +69,27 @@ class TransactionalPointcutTest extends AbstractTest
     {
         $this->assertTrue(
             $this->buildTransactionPointcut(false)->matchesClass(
-                new ReflectionClass(NonTransactionalAwareClass::class)));
+                new ReflectionClass(NonTransactionalAwareClass::class)
+            )
+        );
     }
 
     public function testMatchesNonTransactionalAwareClassWithStrictMode()
     {
         $this->assertFalse(
             $this->buildTransactionPointcut(true)->matchesClass(
-                new ReflectionClass(NonTransactionalAwareClass::class)));
+                new ReflectionClass(NonTransactionalAwareClass::class)
+            )
+        );
     }
 
     public function testMatchesTransactionalAwareClassWithStrictMode()
     {
         $this->assertTrue(
             $this->buildTransactionPointcut(true)->matchesClass(
-                new ReflectionClass(TransactionalAwareClass::class)));
+                new ReflectionClass(TransactionalAwareClass::class)
+            )
+        );
     }
 
     public function testMatchesNonPublicMethod()
@@ -105,7 +112,8 @@ class TransactionalPointcutTest extends AbstractTest
     public function testMatchesAnnotatedPublicMethodWithNotRequiredPolicy()
     {
         $this->reader->expects(static::once())->method('getMethodAnnotation')->willReturn(
-            new Transactional(array('policy' => Transactional::NOT_REQUIRED)));
+            new Transactional(array('policy' => Transactional::NOT_REQUIRED))
+        );
         $this->reader->expects(static::never())->method('getClassAnnotation');
 
         $class = new ReflectionClass(TransactionalAwareClass::class);
@@ -115,7 +123,8 @@ class TransactionalPointcutTest extends AbstractTest
     public function testMatchesAnnotatedPublicMethodWithRequiredPolicy()
     {
         $this->reader->expects(static::once())->method('getMethodAnnotation')->willReturn(
-            new Transactional(array('policy' => Transactional::REQUIRED)));
+            new Transactional(array('policy' => Transactional::REQUIRED))
+        );
         $this->reader->expects(static::never())->method('getClassAnnotation');
 
         $class = new ReflectionClass(TransactionalAwareClass::class);
@@ -125,7 +134,8 @@ class TransactionalPointcutTest extends AbstractTest
     public function testMatchesAnnotatedPublicMethodWithNestedPolicy()
     {
         $this->reader->expects(static::once())->method('getMethodAnnotation')->willReturn(
-            new Transactional(array('policy' => Transactional::NESTED)));
+            new Transactional(array('policy' => Transactional::NESTED))
+        );
         $this->reader->expects(static::never())->method('getClassAnnotation');
 
         $class = new ReflectionClass(TransactionalAwareClass::class);
@@ -141,6 +151,7 @@ class TransactionalPointcutTest extends AbstractTest
         $this->assertTrue($this->buildTransactionPointcut(false)->matchesMethod($class->getMethod('publicMethod')));
         $this->assertTrue($this->buildTransactionPointcut(true)->matchesMethod($class->getMethod('publicMethod')));
     }
+
     public function testMatchesUnannotatedPublicMethodInUnannotatedClass()
     {
         $this->reader->expects(static::exactly(2))->method('getMethodAnnotation')->willReturn(null);
@@ -160,7 +171,8 @@ class TransactionalPointcutTest extends AbstractTest
     private function buildTransactionPointcut($strictModeEnabled)
     {
         $this->container->expects(static::any())->method('getParameter')->with(
-            Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE)->willReturn($strictModeEnabled);
+            Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE
+        )->willReturn($strictModeEnabled);
 
         return new TransactionalPointcut($this->container, $this->reader, $this->logger);
     }
