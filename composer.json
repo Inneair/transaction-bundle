@@ -1,5 +1,5 @@
 {
-	"name" : "inneair/transaction-bundle",
+	"name" : "Inneair/TransactionBundle",
 	"type" : "symfony-bundle",
 	"description" : "Transaction bundle for Symfony",
 	"keywords" : [

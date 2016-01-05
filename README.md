@@ -3,8 +3,8 @@
 [![Build status](https://secure.travis-ci.org/Inneair/TransactionBundle.png)][travis-bundle]
 [![Coverage status](https://coveralls.io/repos/Inneair/TransactionBundle/badge.svg?branch=master&service=github)][coveralls-bundle]
 
-[![Latest stable version](https://poser.pugx.org/Inneair/transaction-bundle/v/stable.png)][packagist-bundle]
-[![License](https://poser.pugx.org/Inneair/transaction-bundle/license)][packagist-bundle]
+[![Latest stable version](https://poser.pugx.org/Inneair/TransactionBundle/v/stable.png)][packagist-bundle]
+[![License](https://poser.pugx.org/Inneair/TransactionBundle/license)][packagist-bundle]
 
 This bundle provides an easy way to manage transactions with annotations. It is highly inspired from the one provided as
 example by the [JMSAopBundle][jmsaop-bundle], but provides :
@@ -34,7 +34,7 @@ is part of the persistence layer, and shall not be aware of this.
 The bundle can be installed in your Symfony project with [Composer][composer]. Open a command console, enter your
 project directory and execute the following command to download the latest stable version of this bundle:
 ```bash
-composer require Inneair/transaction-bundle
+composer require Inneair/TransactionBundle
 ```
 
 ## 2. Activation
@@ -325,6 +325,6 @@ effort.**
 [example]: <#example>
 [installation]: <#installation>
 [jmsaop-bundle]: <https://github.com/schmittjoh/JMSAopBundle>
-[packagist-bundle]: <https://packagist.org/packages/Inneair/transaction-bundle> (Bundle packages on Packagist)
+[packagist-bundle]: <https://packagist.org/packages/Inneair/TransactionBundle> (Bundle packages on Packagist)
 [travis-bundle]: <http://travis-ci.org/Inneair/TransactionBundle> (Build status on Travis CI)
 [usage]: <#usage>
