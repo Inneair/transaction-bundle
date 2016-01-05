@@ -37,7 +37,6 @@ class InvalidConfiguration extends Configuration
         $rootNode = $treeBuilder->root(static::ROOT_NODE_NAME);
         $rootNode->children()
             ->booleanNode(static::STRICT_MODE)
-                ->cannotBeEmpty()
                 ->defaultFalse()
                 ->end()
             ->scalarNode(static::DEFAULT_POLICY)

@@ -73,7 +73,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root(static::ROOT_NODE_NAME);
         $rootNode->fixXmlConfig('no_rollback_exception')->children()
             ->booleanNode(static::STRICT_MODE)
-                ->cannotBeEmpty()
+                //->cannotBeEmpty()
                 ->defaultFalse()
                 ->info('Whether classes must implement the TransactionalAwareInterface interface, so as the Transactional annotation is read.')
                 ->end()
