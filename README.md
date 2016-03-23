@@ -6,6 +6,10 @@
 [![Latest stable version](https://poser.pugx.org/Inneair/transactio-bundle/v/stable.png)][packagist-bundle]
 [![License](https://poser.pugx.org/Inneair/transaction-bundle/license)][packagist-bundle]
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/build-status/master)
+
 This bundle provides an easy way to manage transactions with annotations. It is highly inspired from the one provided as
 example by the [JMSAopBundle][jmsaop-bundle], but provides :
 - a configurable policy, allowing a class/method to choose whereas a new transaction must/shall be opened, or must not
