@@ -1,10 +1,10 @@
 # Inneair Transaction bundle for Symfony
 
-[![Build status](https://secure.travis-ci.org/Inneair/TransactionBundle.png)][travis-bundle]
-[![Coverage status](https://coveralls.io/repos/Inneair/TransactionBundle/badge.svg?branch=master&service=github)][coveralls-bundle]
+[![Build status](https://travis-ci.org/Inneair/transaction-bundle.svg?branch=master)][travis-bundle]
+[![Coverage status](https://coveralls.io/repos/github/Inneair/transaction-bundle/badge.svg?branch=master)][coveralls-bundle]
 
-[![Latest stable version](https://poser.pugx.org/Inneair/TransactionBundle/v/stable.png)][packagist-bundle]
-[![License](https://poser.pugx.org/Inneair/TransactionBundle/license)][packagist-bundle]
+[![Latest stable version](https://poser.pugx.org/Inneair/transactio-bundle/v/stable.png)][packagist-bundle]
+[![License](https://poser.pugx.org/Inneair/transaction-bundle/license)][packagist-bundle]
 
 This bundle provides an easy way to manage transactions with annotations. It is highly inspired from the one provided as
 example by the [JMSAopBundle][jmsaop-bundle], but provides :
@@ -320,11 +320,11 @@ effort.**
 
 [composer]: <https://getcomposer.org/> (Get Composer)
 [configuration]: <#configuration>
-[coveralls-bundle]: <https://coveralls.io/github/Inneair/TransactionBundle?branch=master> (Test coverage on Coveralls)
+[coveralls-bundle]: <https://coveralls.io/github/Inneair/transaction-bundle?branch=master> (Test coverage on Coveralls)
 [doctrinebundle-config]: <http://symfony.com/doc/current/bundles/DoctrineBundle/configuration.html> (DoctrineBundle configuration reference)
 [example]: <#example>
 [installation]: <#installation>
 [jmsaop-bundle]: <https://github.com/schmittjoh/JMSAopBundle>
-[packagist-bundle]: <https://packagist.org/packages/Inneair/TransactionBundle> (Bundle packages on Packagist)
-[travis-bundle]: <http://travis-ci.org/Inneair/TransactionBundle> (Build status on Travis CI)
+[packagist-bundle]: <https://packagist.org/packages/Inneair/transaction-bundle> (Bundle packages on Packagist)
+[travis-bundle]: <http://travis-ci.org/Inneair/transaction-bundle> (Build status on Travis CI)
 [usage]: <#usage>
