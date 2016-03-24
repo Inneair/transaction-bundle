@@ -102,27 +102,23 @@ class TransactionalInterceptor implements MethodInterceptorInterface, ContainerA
             );
         }
 
-        // Gets the entity manager.
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $this->entityManagerRegistry->getManager();
-
         $transactionRequired = false;
         if ($annotation !== null) {
             // Determine if a transaction must be started.
             $transactionRequired = $this->isTransactionRequired(
                 $policy,
-                $entityManager->getConnection()->isTransactionActive()
+                $this->getEntityManager()->getConnection()->isTransactionActive()
             );
         }
 
-        $this->beforeMethodInvocation($transactionRequired, $entityManager);
+        $this->beforeMethodInvocation($transactionRequired);
         try {
             // Invokes the method.
             $this->logger->debug(
                 $methodDefinition->getDeclaringClass()->getName() . '::' . $methodDefinition->getName()
             );
             $result = $method->proceed();
-            $this->afterMethodInvocationSuccess($transactionRequired, $entityManager);
+            $this->afterMethodInvocationSuccess($transactionRequired);
         } catch (Exception $e) {
             // Manage special exceptions (commit or rollback strategy).
             if ($annotation === null) {
@@ -137,24 +133,32 @@ class TransactionalInterceptor implements MethodInterceptorInterface, ContainerA
                 // Use the annotation parameter.
                 $noRollbackExceptions = $annotation->getNoRollbackExceptions();
             }
-            $this->afterMethodInvocationFailure($transactionRequired, $entityManager, $e, $noRollbackExceptions);
+            $this->afterMethodInvocationFailure($transactionRequired, $e, $noRollbackExceptions);
         }
 
         return $result;
     }
 
     /**
+     * Get the entity manager
+     *
+     * @return EntityManagerInterface
+     */
+    protected function getEntityManager()
+    {
+        return $this->entityManagerRegistry->getManager();
+    }
+
+    /**
      * Performs additional process after the intercepted method call was performed with a failure.
      *
      * @param boolean $transactionRequired If a new transaction was required.
-     * @param EntityManagerInterface $entityManager Entity manager
      * @param Exception $e Exception to throw at the end of the additional process.
      * @param string[] $noRollbackExceptions An array of exceptions that shall not lead to a transaction rollback.
      * @throws Exception At the end of the additional process (given exception).
      */
     protected function afterMethodInvocationFailure(
         $transactionRequired,
-        EntityManagerInterface $entityManager,
         Exception $e,
         array $noRollbackExceptions = null
     )
@@ -163,11 +167,11 @@ class TransactionalInterceptor implements MethodInterceptorInterface, ContainerA
             if ($this->isRollbackEnabled($e, $noRollbackExceptions)) {
                 // Rollbacks the transaction.
                 $this->logger->debug('Exception ' . get_class($e) . ' causes rollback');
-                $this->rollback($entityManager);
+                $this->rollback();
             } else {
                 // Commits the transaction.
                 $this->logger->debug('No rollback for exception ' . get_class($e));
-                $this->commit($entityManager);
+                $this->commit();
             }
         }
 
@@ -178,13 +182,12 @@ class TransactionalInterceptor implements MethodInterceptorInterface, ContainerA
      * Performs additional process after the intercepted method call was performed successfully.
      *
      * @param boolean $transactionRequired If a new transaction was required.
-     * @param EntityManagerInterface $entityManager Entity manager
      */
-    protected function afterMethodInvocationSuccess($transactionRequired, EntityManagerInterface $entityManager)
+    protected function afterMethodInvocationSuccess($transactionRequired)
     {
         if ($transactionRequired) {
             // Commits the transaction.
-            $this->commit($entityManager);
+            $this->commit();
         }
     }
 
@@ -192,54 +195,47 @@ class TransactionalInterceptor implements MethodInterceptorInterface, ContainerA
      * Performs additional process before the intercepted method call is performed.
      *
      * @param boolean $transactionRequired If a new transaction is required.
-     * @param EntityManagerInterface $entityManager Entity manager
      */
-    protected function beforeMethodInvocation($transactionRequired, EntityManagerInterface $entityManager)
+    protected function beforeMethodInvocation($transactionRequired)
     {
         if ($transactionRequired) {
             // Starts a transaction.
-            $this->beginTransaction($entityManager);
+            $this->beginTransaction();
         }
     }
 
     /**
      * Starts a transaction on the underlying database connection of a Doctrine's entity manager.
-     *
-     * @param EntityManagerInterface $entityManager Entity manager
      */
-    protected function beginTransaction(EntityManagerInterface $entityManager)
+    protected function beginTransaction()
     {
         $this->logger->debug(static::class . '::beginTransaction');
-        $entityManager->beginTransaction();
+        $this->getEntityManager()->beginTransaction();
     }
 
     /**
      * Commits the pending transaction on the underlying database connection of a Doctrine's entity manager.
-     *
-     * @param EntityManagerInterface $entityManager Entity manager
      */
-    protected function commit(EntityManagerInterface $entityManager)
+    protected function commit()
     {
         $this->logger->debug(static::class . '::commit');
-        $entityManager->flush();
-        $entityManager->commit();
+        $this->getEntityManager()->flush();
+        $this->getEntityManager()->commit();
     }
 
     /**
      * Closes the entity manager, and rollbacks the pending transaction on the underlying database connection of a
      * Doctrine's entity manager with the given name. This method also resets the manager, so as it can be recreated for
      * a new transaction, when needed.
-     *
-     * @param EntityManagerInterface $entityManager Entity manager
      */
-    protected function rollback(EntityManagerInterface $entityManager)
+    protected function rollback()
     {
         $this->logger->debug(static::class . '::rollback');
-        $entityManager->rollback();
+        $this->getEntityManager()->rollback();
 
         // Close the manager if there is no transaction started.
-        if (!$entityManager->getConnection()->isTransactionActive()) {
-            $entityManager->close();
+        if (!$this->getEntityManager()->getConnection()->isTransactionActive()) {
+            $this->getEntityManager()->close();
             $this->entityManagerRegistry->resetManager();
         }
     }
