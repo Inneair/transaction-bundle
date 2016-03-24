@@ -30,18 +30,16 @@ use ReflectionMethod;
 use Inneair\TransactionBundle\Annotation\Transactional;
 use Inneair\TransactionBundle\DependencyInjection\Configuration;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * AOP advice for transaction management in services.
  */
-class TransactionalInterceptor implements MethodInterceptorInterface
+class TransactionalInterceptor implements MethodInterceptorInterface, ContainerAwareInterface
 {
-    /**
-     * Service container.
-     * @var ContainerInterface
-     */
-    private $container;
+    use ContainerAwareTrait;
+
     /**
      * Doctrine's entity manager registry.
      * @var RegistryInterface
@@ -61,15 +59,12 @@ class TransactionalInterceptor implements MethodInterceptorInterface
     /**
      * Creates a method interceptor managing the @Transactional annotation.
      *
-     * @param ContainerInterface $container Container.
      * @param RegistryInterface $entityManagerRegistry Doctrine's entity manager registry.
      * @param Reader $reader Doctrine Annotation reader.
      * @param LoggerInterface $logger Logger.
      */
-    public function __construct(ContainerInterface $container, RegistryInterface $entityManagerRegistry, Reader $reader,
-        LoggerInterface $logger)
+    public function __construct(RegistryInterface $entityManagerRegistry, Reader $reader, LoggerInterface $logger)
     {
-        $this->container = $container;
         $this->entityManagerRegistry = $entityManagerRegistry;
         $this->reader = $reader;
         $this->logger = $logger;

@@ -108,11 +108,11 @@ class TransactionalInterceptorTest extends AbstractTest
         $this->reader = $this->getMock(Reader::class);
 
         $this->transactionalInterceptor = new TransactionalInterceptor(
-            $this->container,
             $this->entityManagerRegistry,
             $this->reader,
             $this->logger
         );
+        $this->transactionalInterceptor->setContainer($this->container);
     }
 
     /**

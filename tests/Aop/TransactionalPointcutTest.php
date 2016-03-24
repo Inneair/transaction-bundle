@@ -170,10 +170,6 @@ class TransactionalPointcutTest extends AbstractTest
      */
     private function buildTransactionPointcut($strictModeEnabled)
     {
-        $this->container->expects(static::any())->method('getParameter')->with(
-            Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE
-        )->willReturn($strictModeEnabled);
-
-        return new TransactionalPointcut($this->container, $this->reader, $this->logger);
+        return new TransactionalPointcut($this->reader, $this->logger, $strictModeEnabled);
     }
 }

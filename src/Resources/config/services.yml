@@ -6,11 +6,13 @@ services:
     # Transactional annotation pointcut
     inneair_transaction.transactional_pointcut:
         class: '%inneair_transaction.transactional_pointcut.class%'
-        arguments: ['@service_container', '@annotation_reader', '@logger']
+        arguments: ['@annotation_reader', '@logger', '%inneair_transaction.strict_mode%']
         tags:
             - {name: 'jms_aop.pointcut', interceptor: 'inneair_transaction.transactional_interceptor'}
 
     # Interceptor for transaction management
     inneair_transaction.transactional_interceptor:
         class: '%inneair_transaction.transactional_interceptor.class%'
-        arguments: ['@service_container', '@doctrine', '@annotation_reader', '@logger']
+        arguments: ['@doctrine', '@annotation_reader', '@logger']
+        calls:
+            - ['setContainer', ['@service_container']]

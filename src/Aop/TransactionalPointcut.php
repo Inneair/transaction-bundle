@@ -27,8 +27,6 @@ use ReflectionClass;
 use ReflectionMethod;
 use Inneair\TransactionBundle\Annotation\Transactional;
 use Inneair\TransactionBundle\Annotation\TransactionalAwareInterface;
-use Inneair\TransactionBundle\DependencyInjection\Configuration;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * This class defines a pointcut specification for transaction management.
@@ -54,18 +52,16 @@ class TransactionalPointcut implements PointcutInterface
     /**
      * Creates a transactional pointcut.
      *
-     * @param ContainerInterface $container
      * @param Reader $reader An annotations reader.
      * @param LoggerInterface $logger Logger.
+     * @param boolean $strictModeEnabled
      * @see TransactionalAwareInterface
      */
-    public function __construct(ContainerInterface $container, Reader $reader, LoggerInterface $logger)
+    public function __construct(Reader $reader, LoggerInterface $logger, $strictModeEnabled = false)
     {
         $this->reader = $reader;
         $this->logger = $logger;
-        $this->strictModeEnabled = $container->getParameter(
-            Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE
-        );
+        $this->strictModeEnabled = $strictModeEnabled;
     }
 
     /**
