@@ -12,7 +12,7 @@ build:
                     format: 'php-clover'
 filter:
     excluded_paths:
-        - src/Test/*
+        - tests/*
 coding_style:
     php:
         indentation:

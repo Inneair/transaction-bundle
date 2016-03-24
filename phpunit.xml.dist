@@ -14,7 +14,7 @@
 
     <testsuites>
         <testsuite name="Inneair Transaction bundle test suite">
-            <directory>src/Test</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
@@ -23,7 +23,6 @@
             <directory>src</directory>
             <exclude>
                 <directory>src/Resources</directory>
-                <directory>src/Test</directory>
             </exclude>
         </whitelist>
     </filter>

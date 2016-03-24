@@ -18,6 +18,7 @@
 	],
 	"autoload" : {
 		"psr-4" : {
+			"Inneair\\TransactionBundle\\Test\\" : "tests/",
 			"Inneair\\TransactionBundle\\" : "src/"
 		}
 	},
