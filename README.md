@@ -3,8 +3,9 @@
 [![Build status](https://travis-ci.org/Inneair/transaction-bundle.svg?branch=master)][travis-bundle]
 [![Coverage status](https://coveralls.io/repos/github/Inneair/transaction-bundle/badge.svg?branch=master)][coveralls-bundle]
 
-[![Latest stable version](https://poser.pugx.org/Inneair/transactio-bundle/v/stable.png)][packagist-bundle]
-[![License](https://poser.pugx.org/Inneair/transaction-bundle/license)][packagist-bundle]
+[![Latest stable version](https://poser.pugx.org/inneair/transaction-bundle/v/stable)][packagist-bundle]
+[![Latest unstable version](https://poser.pugx.org/inneair/transaction-bundle/v/unstable)][packagist-bundle]
+[![License](https://poser.pugx.org/inneair/transaction-bundle/license)][packagist-bundle]
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/?branch=master)
@@ -38,7 +39,7 @@ is part of the persistence layer, and shall not be aware of this.
 The bundle can be installed in your Symfony project with [Composer][composer]. Open a command console, enter your
 project directory and execute the following command to download the latest stable version of this bundle:
 ```bash
-composer require Inneair/TransactionBundle
+composer require inneair/transaction-bundle
 ```
 
 ## 2. Activation
@@ -85,10 +86,10 @@ inneair_transaction:
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
         inneair_transaction http://example.org/dic/schema/inneair_transaction/transaction-1.0.xsd">
 
-    <Inneair-transaction:config strict-mode="false" default-policy="required">
-        <Inneair-transaction:no-rollback-exception>Company\Bundle\MyException1</Inneair-transaction:no-rollback-exception>
-        <Inneair-transaction:no-rollback-exception>Company\Bundle\MyException2</Inneair-transaction:no-rollback-exception>
-    </Inneair-transaction:config>
+    <inneair-transaction:config strict-mode="false" default-policy="required">
+        <inneair-transaction:no-rollback-exception>Company\Bundle\MyException1</Inneair-transaction:no-rollback-exception>
+        <inneair-transaction:no-rollback-exception>Company\Bundle\MyException2</Inneair-transaction:no-rollback-exception>
+    </inneair-transaction:config>
 </container>
 ```
 
