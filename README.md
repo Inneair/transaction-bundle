@@ -2,6 +2,7 @@
 
 [![Build status](https://travis-ci.org/Inneair/transaction-bundle.svg?branch=master)][travis-bundle]
 [![Coverage status](https://coveralls.io/repos/github/Inneair/transaction-bundle/badge.svg?branch=master)][coveralls-bundle]
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/dd05d1a8-f9a8-412a-b2d4-ea1d28ebe223.svg)](https://insight.sensiolabs.com/projects/dd05d1a8-f9a8-412a-b2d4-ea1d28ebe223)
 
 [![Latest stable version](https://poser.pugx.org/inneair/transaction-bundle/v/stable)][packagist-bundle]
 [![Latest unstable version](https://poser.pugx.org/inneair/transaction-bundle/v/unstable)][packagist-bundle]
@@ -44,6 +45,9 @@ composer require inneair/transaction-bundle
 
 ## 2. Activation
 
+Activate the [JMSAopBundle][jmsaop-bundle] first, following [those instructions][jms-aop-installation] for installation
+and configuration.
+
 Activate the bundle by modifying the `app/AppKernel.php` file:
 ```php
 <?php
@@ -82,7 +86,7 @@ inneair_transaction:
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:Inneair-transaction="http://example.org/schema/dic/inneair_transaction"
+    xmlns:inneair-transaction="http://example.org/schema/dic/inneair_transaction"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
         inneair_transaction http://example.org/dic/schema/inneair_transaction/transaction-1.0.xsd">
 
@@ -330,6 +334,7 @@ effort.**
 [example]: <#example>
 [installation]: <#installation>
 [jmsaop-bundle]: <https://github.com/schmittjoh/JMSAopBundle>
+[jms-aop-installation]: http://jmsyst.com/bundles/JMSAopBundle
 [packagist-bundle]: <https://packagist.org/packages/Inneair/transaction-bundle> (Bundle packages on Packagist)
 [travis-bundle]: <http://travis-ci.org/Inneair/transaction-bundle> (Build status on Travis CI)
 [usage]: <#usage>
