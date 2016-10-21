@@ -69,9 +69,9 @@ class InneairTransactionExtensionTest extends AbstractTest
      */
     public function setUp()
     {
-        $this->annotationReader = $this->getMock(Reader::class);
-        $this->logger = $this->getMock(LoggerInterface::class);
-        $this->entityManagerRegistry = $this->getMock(RegistryInterface::class);
+        $this->annotationReader = $this->createMock(Reader::class);
+        $this->logger = $this->createMock(LoggerInterface::class);
+        $this->entityManagerRegistry = $this->createMock(RegistryInterface::class);
         $this->extension = new InneairTransactionExtension();
 
         $this->container = new ContainerBuilder();
@@ -173,7 +173,8 @@ class InneairTransactionExtensionTest extends AbstractTest
 
     public function testConfigurationWithUnsupportedPolicy()
     {
-        $extension = $this->getMock(InneairTransactionExtension::class, array('getConfiguration'));
+        $extension = $this->getMockBuilder(InneairTransactionExtension::class)->setMethods(array('getConfiguration'))
+            ->getMock();
         $extension->expects(static::once())->method('getConfiguration')->willReturn(new InvalidConfiguration());
         $hasException = false;
         try {

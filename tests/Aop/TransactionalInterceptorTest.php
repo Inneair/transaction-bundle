@@ -90,22 +90,22 @@ class TransactionalInterceptorTest extends AbstractTest
     {
         parent::setUp();
 
-        $this->container = $this->getMock(ContainerInterface::class);
+        $this->container = $this->createMock(ContainerInterface::class);
 
         $this->connection = $this->getMockBuilder(Connection::class)->disableOriginalConstructor()->getMock();
 
         $this->repository = $this->getMockBuilder(ObjectRepository::class)->disableOriginalConstructor()->getMock();
 
-        $this->entityManager = $this->getMock(EntityManagerInterface::class);
+        $this->entityManager = $this->createMock(EntityManagerInterface::class);
         $this->entityManager->expects($this->any())->method('getConnection')->willReturn($this->connection);
         $this->entityManager->expects($this->any())->method('getRepository')->willReturn($this->repository);
 
-        $this->entityManagerRegistry = $this->getMock(RegistryInterface::class);
+        $this->entityManagerRegistry = $this->createMock(RegistryInterface::class);
         $this->entityManagerRegistry->expects(static::any())->method('getManager')->willReturn($this->entityManager);
 
-        $this->logger = $this->getMock(LoggerInterface::class);
+        $this->logger = $this->createMock(LoggerInterface::class);
 
-        $this->reader = $this->getMock(Reader::class);
+        $this->reader = $this->createMock(Reader::class);
 
         $this->transactionalInterceptor = new TransactionalInterceptor(
             $this->entityManagerRegistry,

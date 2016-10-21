@@ -60,9 +60,9 @@ class TransactionalPointcutTest extends AbstractTest
     {
         parent::setUp();
 
-        $this->container = $this->getMock(ContainerInterface::class);
-        $this->logger = $this->getMock(LoggerInterface::class);
-        $this->reader = $this->getMock(Reader::class);
+        $this->container = $this->createMock(ContainerInterface::class);
+        $this->logger = $this->createMock(LoggerInterface::class);
+        $this->reader = $this->createMock(Reader::class);
     }
 
     public function testMatchesNonTransactionalAwareClassWithoutStrictMode()
