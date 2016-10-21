@@ -89,42 +89,35 @@ class TransactionalPointcut implements PointcutInterface
             $annotation = $this->reader->getMethodAnnotation($method, Transactional::class);
             $transactionalEnabled = ($annotation !== null);
             if (!$transactionalEnabled) {
-                // If there is no method-level annotation,
-                // gets class-level annotation.
+                // If there is no method-level annotation, gets class-level annotation.
                 $annotation = $this->reader->getClassAnnotation($method->getDeclaringClass(), Transactional::class);
                 $transactionalEnabled = ($annotation !== null);
             }
 
             if ($transactionalEnabled) {
                 switch ($annotation->getPolicy()) {
-                case Transactional::NOT_REQUIRED:
-                    $policyName = 'not required';
-                    break;
-                case Transactional::REQUIRED:
-                    REQUIRED:
-                    $policyName = 'required';
-                    break;
-                case Transactional::NESTED:
-                    NESTED:
-                    $policyName = 'nested';
-                    break;
-                default:
-                    $policyName = 'default';
-                    break;
+                    case Transactional::NOT_REQUIRED:
+                        $policyName = 'not required';
+                        break;
+                    case Transactional::REQUIRED:
+                        $policyName = 'required';
+                        break;
+                    case Transactional::NESTED:
+                        $policyName = 'nested';
+                        break;
+                    default:
+                        $policyName = 'default';
                 }
-                $this->logger->debug(
-                    'TX policy for \'' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '\': '
-                    . $policyName
-                );
+                $methodString = $method->getDeclaringClass()->name . '::' . $method->name;
+                $this->logger->debug('TX policy for \'' . $methodString . '\': ' . $policyName);
                 $noRollbackExceptionsStr = implode(
                     ', ',
                     ($annotation->getNoRollbackExceptions() === null)
-                        ? array('default')
+                        ? ['default']
                         : $annotation->getNoRollbackExceptions()
                 );
                 $this->logger->debug(
-                    'TX no-rollback exceptions for \'' . $method->getDeclaringClass()->getName() . '::'
-                    . $method->getName() . '\': ' . $noRollbackExceptionsStr
+                    'TX no-rollback exceptions for \'' . $methodString . '\': ' . $noRollbackExceptionsStr
                 );
             }
         }

@@ -21,6 +21,7 @@
 namespace Inneair\TransactionBundle\Test\Aop\Fixture;
 
 use Closure;
+use Exception;
 use ReflectionClass;
 use Inneair\TransactionBundle\Aop\TransactionalInterceptor;
 

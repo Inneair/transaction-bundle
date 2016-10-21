@@ -20,6 +20,8 @@
 
 namespace Inneair\TransactionBundle\Annotation;
 
+use Doctrine\Common\Annotations\Annotation\Attribute;
+use Doctrine\Common\Annotations\Annotation\Attributes;
 use Doctrine\Common\Annotations\AnnotationException;
 use Exception;
 use ReflectionClass;
@@ -84,7 +86,7 @@ class Transactional
      * @throws AnnotationException If the policy is set and has an invalid value, or if a no rollback exception does not
      * exist, or is not a valid exception.
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         if (isset($options['policy'])) {
             $policy = $this->validatePolicy($options['policy']);
@@ -131,7 +133,7 @@ class Transactional
      */
     private function validatePolicy($annotationPolicy)
     {
-        $policies = array(static::NOT_REQUIRED, static::REQUIRED, static::NESTED);
+        $policies = [static::NOT_REQUIRED, static::REQUIRED, static::NESTED];
         if (in_array($annotationPolicy, $policies)) {
             $policy = $annotationPolicy;
         } else {
@@ -152,7 +154,7 @@ class Transactional
      */
     private function validateNoRollbackExceptions($annotationNoRollbackExceptions)
     {
-        $noRollbackExceptions = array();
+        $noRollbackExceptions = [];
         foreach ($annotationNoRollbackExceptions as $exceptionClassName) {
             try {
                 $exceptionClass = new ReflectionClass($exceptionClassName);

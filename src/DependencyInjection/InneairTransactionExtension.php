@@ -50,22 +50,23 @@ class InneairTransactionExtension extends Extension
 
         $container->setParameter(
             Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE,
-            $config[Configuration::STRICT_MODE]);
+            $config[Configuration::STRICT_MODE]
+        );
 
         switch ($config[Configuration::DEFAULT_POLICY]) {
-        case Configuration::POLICY_NOT_REQUIRED:
-            $policy = Transactional::NOT_REQUIRED;
-            break;
-        case Configuration::POLICY_REQUIRED:
-            $policy = Transactional::REQUIRED;
-            break;
-        case Configuration::POLICY_NESTED:
-            $policy = Transactional::NESTED;
-            break;
-        default:
-            throw new InvalidArgumentException(
-                'Unsupported default policy "' . $config[Configuration::DEFAULT_POLICY] . '"'
-            );
+            case Configuration::POLICY_NOT_REQUIRED:
+                $policy = Transactional::NOT_REQUIRED;
+                break;
+            case Configuration::POLICY_REQUIRED:
+                $policy = Transactional::REQUIRED;
+                break;
+            case Configuration::POLICY_NESTED:
+                $policy = Transactional::NESTED;
+                break;
+            default:
+                throw new InvalidArgumentException(
+                    'Unsupported default policy "' . $config[Configuration::DEFAULT_POLICY] . '"'
+                );
         }
         $container->setParameter(Configuration::ROOT_NODE_NAME . '.' . Configuration::DEFAULT_POLICY, $policy);
 

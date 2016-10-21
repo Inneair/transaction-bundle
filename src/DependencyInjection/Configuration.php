@@ -79,7 +79,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->enumNode(static::DEFAULT_POLICY)
                 ->cannotBeEmpty()
-                ->values(array(static::POLICY_REQUIRED, static::POLICY_NOT_REQUIRED, static::POLICY_NESTED))
+                ->values([static::POLICY_REQUIRED, static::POLICY_NOT_REQUIRED, static::POLICY_NESTED])
                 ->defaultValue(static::POLICY_REQUIRED)
                 ->info('Default transactional policy when none policy is set in the annotation')
                 ->end()

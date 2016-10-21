@@ -112,7 +112,7 @@ class TransactionalPointcutTest extends AbstractTest
     public function testMatchesAnnotatedPublicMethodWithNotRequiredPolicy()
     {
         $this->reader->expects(static::once())->method('getMethodAnnotation')->willReturn(
-            new Transactional(array('policy' => Transactional::NOT_REQUIRED))
+            new Transactional(['policy' => Transactional::NOT_REQUIRED])
         );
         $this->reader->expects(static::never())->method('getClassAnnotation');
 
@@ -123,7 +123,7 @@ class TransactionalPointcutTest extends AbstractTest
     public function testMatchesAnnotatedPublicMethodWithRequiredPolicy()
     {
         $this->reader->expects(static::once())->method('getMethodAnnotation')->willReturn(
-            new Transactional(array('policy' => Transactional::REQUIRED))
+            new Transactional(['policy' => Transactional::REQUIRED])
         );
         $this->reader->expects(static::never())->method('getClassAnnotation');
 
@@ -134,7 +134,7 @@ class TransactionalPointcutTest extends AbstractTest
     public function testMatchesAnnotatedPublicMethodWithNestedPolicy()
     {
         $this->reader->expects(static::once())->method('getMethodAnnotation')->willReturn(
-            new Transactional(array('policy' => Transactional::NESTED))
+            new Transactional(['policy' => Transactional::NESTED])
         );
         $this->reader->expects(static::never())->method('getClassAnnotation');
 
